@@ -1,34 +1,26 @@
 #!/bin/bash
 
+# Checkout Source release Branch
+
 # Name of the branch to level up from
 echo "What branch are you leveling up from?"
-read LEVEL_UP_BRANCH
+read SOURCE_BRANCH
+git checkout $SOURCE_BRANCH
+git pull
 
-## Navigate to the git repository
-#cd /path/to/your/repository
 
-# Ensure the repository is up-to-date
-git fetch origin
-git pull origin $LEVEL_UP_BRANCH
+# Name of the target branch we are leveling up
+echo "What branch are you leveling up?"
+read TARGET_BRANCH
 
-# Check out a new branch to level up the repository
-git checkout -b r3-to-level-up-from
+checkout $TARGET_BRANCH
+git pull
 
-# Check out branch to level up into
-git checkout release4.0
+git checkout -b TARGET_BRANCH_AUXILIARY_TO_RECEIVE_MERGE_FROM_SOURCE_BRANCH
 
-# Check out a new branch to level up into
-git checkout -b r4-to-merge-r3-into
-
-# Merge R3 into R4
-# git merge r3-to-level-up-from
+git merge $SOURCE_BRANCH
 
 # Add and commit the changes
 git add .
-git commit -m "Leveled up the repository from R3"
+git commit -m "Leveled up the repository from ${SOURCE_BRANCH}"
 
-# Push the changes to the remote branch
-git push origin r4-to-merge-r3-into:release4.0
-
-# Create a pull request to merge the changes into the main branch
-# ...
